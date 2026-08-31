@@ -1,0 +1,33 @@
+#background-colors:
+#  - "rgba(237, 251, 255, 1)"
+#  - "rgba(246, 252, 237, 1)"
+#  - "rgba(254, 248, 237, 1)"
+#  - "rgba(252, 237, 247, 1)"
+
+format:
+  containerstheme-revealjs:
+    center: true
+    touch: true
+    incremental: true
+    self-contained: false
+    smaller: true
+    chalkboard:
+      theme: whiteboard
+    preview-links: true
+    title-slide-attributes:
+        data-state: "hide-menubar"
+    transition: slide
+    section-divs: false
+    menu: false
+    simplemenu:
+      flat: true
+      barhtml:
+        header: "<div class='menubar'><ul class='menu'></ul></div>"
+      scale: 0.70
+    filters:
+      - patches/iframe.lua
+      - patches/filelink.lua
+revealjs-plugins:
+  - simplemenu
+  - tabset
+bibliography: "My Library.bib"
