@@ -1,0 +1,3 @@
+## Mona's presentations
+
+[LLM responses to cross-cultural emotional situations ](llm-emotions/llm-emotions-presentation.qmd)

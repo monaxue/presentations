@@ -4,5 +4,8 @@
   },
   "emoji/emoji.qmd": {
     "emoji.html": "e24aa011"
+  },
+  "llm-emotions/llm-emotions-presentation.qmd": {
+    "llm-emotions-presentation.html": "056bb090"
   }
 }

@@ -1,0 +1,810 @@
+/*-- scss:defaults --*/
+$padding-normal: 10px 20px;
+$padding-compact: 5px 10px; 
+$padding-spacious: 30px;
+$line-height-normal: 1.5;
+$line-height-compact: 1.2;
+$radius-1:    15px;
+$radius-2:    12px;
+$radius-3: 10px;
+$margin-top-normal: 0.4em; // default from quarto?
+$margin-bottom-normal: 0.2em; // default from quarto?
+$margin-top-compact: 0.2em;
+$margin-bottom-compact: 0.1em;
+
+/*-- scss:mixins --*/
+@mixin card-item($bg, $width, $radius: $radius-1, $padding: $padding-normal, $line-height: $line-height-normal, $border-color: var(--color-3)) {
+  /*--display: block;--*/
+  box-sizing: border-box;
+  background-color: $bg;
+  border: 2px solid $border-color;
+  padding: $padding;
+  border-radius: $radius;
+  width: $width;
+  line-height: $line-height;
+}
+
+@mixin card-list-styles(
+$bg-li-1: var(--color-1),
+$bg-li-2: var(--color-2),
+$border-color: var(--color-3),
+$margin-top: $margin-top-normal, 
+$margin-bottom: $margin-bottom-normal, 
+$line-height: $line-height-normal, 
+$radius-larger: $radius-1,
+$radius-smaller: $radius-2,
+$padding: $padding-normal) {
+  ul {
+    list-style: none;
+    width: 100%;
+    padding-left: 0;
+    line-height: $line-height;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  ol {
+    width: 100%;
+    padding-left: 0;
+    list-style-type: decimal;
+    list-style-position: inside;
+    line-height: $line-height;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  ul li, ol li{
+    margin-top: $margin-top;
+    margin-bottom: $margin-bottom;
+  }
+
+  > ul > li,
+  > ol > li { 
+    @include card-item($bg: $bg-li-2, $border-color: $border-color, $width: 100%, $radius: $radius-larger, $padding: $padding, $line-height: $line-height); 
+    //margin-bottom: //8px; 
+  }
+  li > :where(ul, ol) > li { 
+    @include card-item($bg: $bg-li-1, $border-color: $border-color, $width: 100%, $radius: $radius-smaller, $padding: $padding, $line-height: $line-height); 
+    //margin-bottom: //4px; 
+  }
+  li > :where(ul, ol) > li > :where(ul, ol) > li { 
+    @include card-item($bg: $bg-li-2, $border-color: $border-color, $width: 100%, $radius: $radius-smaller, $padding: $padding, $line-height: $line-height); 
+    //margin-bottom: //4px; 
+  }
+  li > :where(ul, ol) {
+    //margin-top: // 4px;
+    //margin-bottom: // 4px;
+    padding-left: 0;
+  }
+  ol > li { 
+    display: list-item; 
+  }
+}
+
+/*-- scss:rules --*/
+:root {
+  --color-1: var(--r-background-color);
+}
+
+/* ── Scrollable centered slides ─────────────────────────────────────── */
+.reveal .slide.center.scrollable {
+  height: auto;      // was: height: 100% — shrink to content, like ul slides
+  max-height: 100%;  // cap at the frame so genuinely overflowing slides still scroll
+}
+
+.reveal .slides section.narrow-margin {
+  padding: 0px !important;
+}
+
+.reveal .slides .card-1-center,
+.reveal .slides .card-1 {
+@include card-item(var(--color-1), $width: fit-content, $padding: $padding-spacious);
+text-align: center;
+margin: auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: $margin-bottom-normal;
+margin-top: $margin-top-normal;
+box-sizing: border-box;
+
+p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: $line-height-normal !important;
+}
+
+
+
+}
+
+.reveal .slides .card-2-center, 
+.reveal .slides .card-2{
+@include card-item(var(--color-2), $width: fit-content, $padding: $padding-spacious);
+text-align: center;
+margin: auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: $margin-bottom-normal;
+margin-top: $margin-top-normal;
+box-sizing: border-box;
+
+p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: $line-height-normal !important;
+}
+
+}
+
+
+.reveal .slides .card-1-full {
+@include card-item(var(--color-1), $width: calc(100% - $margin-bottom-normal), $padding: $padding-normal);
+text-align: left;
+margin-bottom: $margin-bottom-normal;
+margin-top: $margin-top-normal;
+margin-right: $margin-bottom-normal;
+
+p {
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
+  line-height: $line-height-normal !important;
+}
+
+}
+
+.reveal .slides .card-2-full {
+@include card-item(var(--color-2), $width: calc(100% - $margin-bottom-normal), $padding: $padding-normal);
+text-align: left;
+margin-bottom: $margin-bottom-normal;
+margin-top: $margin-top-normal;
+margin-right: $margin-bottom-normal;
+
+p {
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
+  line-height: $line-height-normal !important;
+}
+
+}
+
+.reveal .slides .card-1-compact {
+@include card-item(var(--color-1), $width: calc(100% - $margin-bottom-compact), $padding: $padding-compact, $line-height: $line-height-compact);
+text-align: left;
+margin-bottom: $margin-bottom-compact;
+margin-top: $margin-top-compact;
+margin-right: $margin-bottom-compact;
+
+p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: $line-height-compact !important;
+}
+
+
+}
+
+.reveal .slides .card-2-compact {
+@include card-item(var(--color-2), $width: calc(100% - $margin-bottom-compact), $padding: $padding-compact, $line-height: $line-height-compact);
+text-align: left;
+margin-bottom: $margin-bottom-compact;
+margin-top: $margin-top-compact;
+margin-right: $margin-bottom-compact;
+
+p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: $line-height-compact !important;
+}
+
+}
+
+
+.reveal section img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.reveal .slides section .blur {
+  filter: blur(10px);
+}
+
+.reveal .slides section .fragment.focus-to-blur {
+  opacity: 1;
+  visibility: visible;
+  filter: none;
+
+}
+
+.reveal .slides section .fragment.focus-to-blur.visible {
+  filter: blur(10px);
+}
+
+.reveal section.scrollable {
+  scrollbar-color: var(--color-2) var(--color-1);
+}
+.reveal section.scrollable::-webkit-scrollbar { width: 10px; }
+.reveal section.scrollable::-webkit-scrollbar-track { background: var(--color-1); }
+.reveal section.scrollable::-webkit-scrollbar-thumb {
+  background: var(--color-2);
+  border-radius: 5px;
+  border: 2px solid var(--color-3);   /* outline matching the track */
+}
+
+/* Engagement states: thumb fills solid color-3 (border matches, so it blends) */
+.reveal section.scrollable:focus {
+  scrollbar-color: var(--color-3) var(--color-1);
+}
+.reveal section.scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--color-3);
+}
+.reveal section.scrollable:focus::-webkit-scrollbar-thumb {
+  background: var(--color-3);
+}
+
+// ── Mermaid: match slide colors (outline style) ─────────────────
+// These vars must be declared on slide elements, not on :root:
+// var() references in custom properties resolve where declared,
+// before inheritance, so :root cannot see slide-local --color-2.
+.reveal .slide, #title-slide {
+  --mermaid-bg-color: var(--color-1);
+  --mermaid-label-bg-color: var(--color-1);
+  --mermaid-node-bg-color: var(--color-2);
+  --mermaid-fg-color--lightest: var(--color-1);
+  --mermaid-node-fg-color: #{$body-color};
+  --mermaid-edge-color: var(--color-3);
+  --mermaid-fg-color--lighter: var(--color-2);
+  --mermaid-fg-color: #{$body-color};
+  --mermaid-label-fg-color: #{$body-color};
+}
+
+// Mermaid 11 applies inline styles to the rendered SVG, so CSS-variable rules
+// above are not always enough. Force the diagram palette with !important on the
+// SVG shapes, labels, and edges so it matches the slide.
+.reveal .slide .mermaid svg {
+  .node rect,
+  .node circle,
+  .node ellipse,
+  .node polygon,
+  .node path {
+    fill: var(--color-2) !important;
+    stroke: var(--color-3) !important;
+  }
+  .node .label,
+  .nodeLabel,
+  .node text,
+  text {
+    fill: #{$body-color} !important;
+  }
+  .edgePath .path,
+  .edge-thickness-normal,
+  .flowchart-link {
+    stroke: var(--color-3) !important;
+  }
+  .edgeLabel rect,
+  .edgeLabelBkg {
+    fill: var(--color-1) !important;
+    stroke: var(--color-3) !important;
+  }
+  .edgeLabel text {
+    fill: #{$body-color} !important;
+  }
+}
+
+// d2 SVG theming: d2 renders at build time with its own palette (blue strokes,
+// white bg) via presentation attributes and an embedded <style>. Force the
+// mermaid-matching palette with !important. Anchor on data-d2-version, which
+// d2 always emits on its root <svg>.
+.reveal .slide svg[data-d2-version],
+#title-slide svg[data-d2-version] {
+  // Canvas background rect (direct child of the inner .d2-svg)
+  .d2-svg > rect,
+  > rect {
+    fill: var(--color-1) !important;
+  }
+
+  // Node shapes: fill with the card color, stroke with the accent color
+  .shape rect,
+  .shape circle,
+  .shape ellipse,
+  .shape polygon,
+  .shape path {
+    fill: var(--color-2) !important;
+    stroke: var(--color-3) !important;
+  }
+
+  // Round rectangle corners to match the card-list aesthetic
+  .shape rect {
+    rx: 8px !important;
+    ry: 8px !important;
+  }
+
+  // Labels
+  text,
+  tspan {
+    fill: #{$body-color} !important;
+  }
+
+  // Edges (paths carry class "connection"; fill must stay none)
+  path.connection {
+    stroke: var(--color-3) !important;
+    fill: none !important;
+  }
+
+  // Arrowheads: polygons inside <marker> also carry class "connection"
+  marker polygon,
+  marker path {
+    fill: var(--color-3) !important;
+    stroke: var(--color-3) !important;
+  }
+}
+
+
+// Changes the main body background color for all callout types //
+//div.callout 
+.callout-body {
+  background-color: var(--color-1) !important;
+  border-radius: $radius-1 !important;
+}
+
+// Changes the background color of the callout title header banner //
+//div.callout.callout-style-default 
+.callout-header {
+  background-color: var(--color-1) !important; 
+}
+
+.callout-title {
+  border-top-left-radius: $radius-1 !important;
+  border-top-right-radius: $radius-1 !important;
+}
+
+.callout {
+  border-radius: $radius-1 !important; // Adjust the pixel or rem value as desired
+  position: relative;
+}
+
+// Adds h4-h6 as headings with decreasing size //
+
+.reveal slide h4,
+.reveal section h4 {
+font-size:1.6em ;
+
+}
+
+.reveal slide h5,
+.reveal section h5 {
+font-size:1.4em ;
+
+}
+
+.reveal slide h6,
+.reveal section h6 {
+font-size:1.2em ;
+
+}
+
+// ── normal-list: reset to browser defaults ─────────────────────
+.reveal .slide .normal-list {
+  ul, ol {
+    width: auto;
+    list-style: revert;
+    list-style-position: outside;
+    margin-left: 1.5em;
+    padding-left: 0;
+    line-height: $line-height-normal;
+  }
+
+  > ul > li,
+  > ol > li,
+  li > :where(ul, ol) > li,
+  li > :where(ul, ol) > li > :where(ul, ol) > li {
+    display: list-item;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    width: auto;
+    line-height: $line-height-normal;
+    box-sizing: content-box;
+    border: none;
+  }
+
+  ul.task-list { 
+    list-style: none; 
+    display: block
+  }
+  ul.task-list li input[type="checkbox"] {
+    margin: 0 1em 0.5em -1.6em;
+    vertical-align: middle;
+  }
+}
+
+// ── Default card list ──────────────────────────────────────────
+.reveal .slide {
+  //--color-2: rgba(244, 223, 184, 1);
+  //--color-3: rgba(211, 145, 0, 1);
+  @include card-list-styles;
+}
+
+// ── .card-list (explicit) ──────────────────────────────────────
+.reveal .slide .card-list {
+  @include card-list-styles;
+}
+
+.reveal .slide .card-list-compact {
+  @include card-list-styles($margin-top: $margin-top-compact, 
+  $margin-bottom: $margin-bottom-compact, 
+  $line-height: $line-height-compact,
+  $radius-larger: $radius-2,
+  $radius-smaller: $radius-3, 
+  $padding: $padding-compact);
+}
+
+// ── .card-list-center ──────────────────────────────────────────
+.reveal .slide .card-list-center {
+  width: fit-content;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5em;
+  
+
+  ul {
+    list-style: none;
+    line-height: $line-height-normal;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    line-height: $line-height-normal;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  ul li, ol li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  > ul > li,
+  > ol > li {
+    @include card-item(var(--color-2), $width: fit-content, $padding: $padding-spacious);
+    // margin-bottom: 8px;
+  }
+  li > :where(ul, ol) > li {
+    @include card-item(var(--color-1), $width: fit-content, $padding: $padding-normal, $radius: $radius-2);
+    margin-bottom: 4px; }
+  li > :where(ul, ol) > li > :where(ul, ol) > li {
+    @include card-item(var(--color-2), $width: fit-content, $padding: $padding-normal, $radius: $radius-2);
+    // margin-bottom: 4px;
+  }
+  li > :where(ul, ol) {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 0;
+  }
+}
+
+// ── Panel tabset ───────────────────────────────────────────────
+.reveal .slide .panel-tabset {
+  border: 4px solid var(--color-2);
+  border-radius: 24px;
+  overflow: hidden;
+
+  [role="tablist"] {
+    list-style: none;
+    margin: 0 !important;
+    padding: 6px 8px 0 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--color-2);
+    border-bottom: none !important;
+    display: flex;
+    gap: 4px;
+    align-items: stretch;
+
+    li { display: flex; }
+  }
+
+  [role="tab"] {
+    display: inline-block;
+    padding: 0.4em 1.1em;
+    border: none !important;
+    border-radius: 14px 14px 0 0;
+    margin-bottom: 0 !important;
+    text-decoration: none;
+    color: #555;
+    background: transparent;
+    outline: none !important;
+
+    &:focus {
+      outline: none !important;
+    }
+
+    &[aria-selected="true"] {
+      background: var(--color-1) !important;
+      border: none !important;
+      color: #222;
+      font-weight: 600;
+    }
+  }
+
+  .tab-content {
+    padding: 16px;
+    padding-bottom: 8px;
+    background: var(--color-1);
+    border: none !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tab-content > [role="tabpanel"],
+  .tab-content > div[data-tabpanel],
+  .tab-content > .tabpanel {
+    flex: 1;
+  }
+
+  .tab-content {
+    ul, ol {
+      list-style: none;
+      width: 100%;
+      padding-left: 0;
+      line-height: $line-height-normal;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    ol {
+      list-style-type: decimal;
+      list-style-position: inside;
+    }
+
+    ul > li,
+    ol > li {
+      @include card-item($bg: var(--color-2), $width: 100%, $padding: $padding-normal);
+      margin-bottom: 8px;
+    }
+
+    li > :where(ul, ol) > li {
+      @include card-item($bg: var(--color-1), $width: 100%, $radius: $radius-2, $padding: $padding-normal);
+      margin-bottom: 4px;
+    }
+
+    li > :where(ul, ol) > li > :where(ul, ol) > li {
+      @include card-item($bg: var(--color-2), $width: 100%, $radius: $radius-2, $padding: $padding-normal);
+      margin-bottom: 4px;
+    }
+
+    li > :where(ul, ol) {
+      margin-top: 4px;
+      margin-bottom: 4px;
+      padding-left: 0;
+    }
+
+    ol > li {
+      display: list-item;
+    }
+  }
+
+
+}
+
+// ── Global ─────────────────────────────────────────────────────
+.reveal .slides {
+  p, li { line-height: $line-height-normal; }
+}
+
+// ── simplemenu: reserve space for the top menu bar ──────────────────
+// reveal.js computes the slide scale from .reveal's offsetWidth/offsetHeight,
+// so shrinking and offsetting .reveal both repositions and rescales the slide
+// content. The bar is positioned:absolute inside .reveal (simplemenu.js:333)
+// and reveal.css gives .reveal overflow:hidden, so we cannot lift it with a
+// negative top; instead we pin it to the viewport with fixed positioning. The
+// bar-height expression mirrors the plugin's own sizing (2em of its clamped
+// font size), so the reservation tracks the plugin at any window size. Guarded
+// so it is inert in decks without a simplemenu top bar, in PDF export, and in
+// scroll view.
+html:not(.print-pdf) body:not(.reveal-scroll):has(.menubar.top) .reveal {
+  --simplemenu-space: calc(
+    2 * clamp(16px, var(--r-main-font-size) * var(--simplemenu-scale, 0.75), 80px)
+  );
+  height: calc(100% - var(--simplemenu-space));
+  margin-top: var(--simplemenu-space);
+}
+html:not(.print-pdf) body:not(.reveal-scroll):has(.menubar.top) .reveal > .menubar.top {
+  // Pin to the viewport, not .reveal: .reveal is overflow:hidden, and the slide
+  // scale transform lives on .slides, so fixed here is clean and escapes clipping.
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  // Fallback: reveal-generated slides (TOC, refs) have no baked per-slide
+  // menubar rule, so they stay transparent rather than picking up an arbitrary color.
+  background-color: transparent;
+}
+
+// Thicker, fully opaque hairline separators (plugin default: 1px at 30% opacity).
+.reveal .menubar:before,
+.reveal .menubar:after {
+  border-bottom-width: 2px;
+}
+.reveal .menubar.top:after,
+.reveal .menubar.bottom:before {
+  opacity: 1;
+  border-bottom-color: var(--color-3, currentColor);
+}
+
+// In PDF export, simplemenu removes the viewport bar and clones a menubar into
+// each printed page section. The clone lives inside the section, so it inherits
+// that section's baked --color-2 directly.
+.reveal .slides .pdf-page .menubar {
+  background-color: var(--color-2);
+}
+
+/* ── Column container styling ───────────────────────────────────── */
+/* Outer .column handles layout (width from Quarto, margins) */
+.reveal .slide .column {
+  background-color: transparent;
+  
+}
+
+/* Inner .column-card wraps content and gets card styling */
+.reveal .slide .column-card {
+  background-color: var(--color-2);
+  border: 2px solid var(--color-3);
+  border-radius: $radius-1;
+  padding: 10px;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+/* Shared list styles for both .column and .column-card */
+.reveal .slide .column > ul,
+.reveal .slide .column-card > ul {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+}
+
+.reveal .slide .column > ol,
+.reveal .slide .column-card > ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+}
+
+.reveal .slide .column > ul > li,
+.reveal .slide .column > ol > li,
+.reveal .slide .column-card > ul > li,
+.reveal .slide .column-card > ol > li {
+  @include card-item(var(--color-1), 100%);
+  text-align: left;
+  margin-bottom: 8px;
+}
+.reveal .slide .column > ol > li,
+.reveal .slide .column li > :where(ul, ol) > li,
+.reveal .slide .column-card > ol > li,
+.reveal .slide .column-card li > :where(ul, ol) > li {
+  display: list-item;
+}
+
+.reveal .slide .column li > :where(ul, ol),
+.reveal .slide .column-card li > :where(ul, ol) {
+  width: 100%;
+  padding-left: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.reveal .slide .column li > :where(ul, ol) > li,
+.reveal .slide .column-card li > :where(ul, ol) > li {
+  @include card-item(var(--color-2), 100%, $radius-2);
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.reveal .slide .column li > :where(ul, ol) > li > :where(ul, ol),
+.reveal .slide .column-card li > :where(ul, ol) > li > :where(ul, ol) {
+  width: 100%;
+  padding-left: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.reveal .slide .column li > :where(ul, ol) > li > :where(ul, ol) > li,
+.reveal .slide .column-card li > :where(ul, ol) > li > :where(ul, ol) > li {
+  @include card-item(var(--color-1), 100%, $radius-2);
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+/* ── Columns inside panel tabsets ────────────────────────────────── */
+/* The .tab-content list rules are more specific (0,4,x) than the column
+   rules (0,3,x) and use descendant selectors, so they override the column
+   alternation inside tabsets. Re-assert the column alternation (color-1
+   first) at higher specificity so columns behave consistently everywhere. */
+.reveal .slide .panel-tabset .tab-content .column > ul > li,
+.reveal .slide .panel-tabset .tab-content .column > ol > li,
+.reveal .slide .panel-tabset .tab-content .column-card > ul > li,
+.reveal .slide .panel-tabset .tab-content .column-card > ol > li {
+  @include card-item(var(--color-1), 100%);
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.reveal .slide .panel-tabset .tab-content .column li > :where(ul, ol) > li,
+.reveal .slide .panel-tabset .tab-content .column-card li > :where(ul, ol) > li {
+  @include card-item(var(--color-2), 100%, $radius-2);
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.reveal .slide .panel-tabset .tab-content .column li > :where(ul, ol) > li > :where(ul, ol) > li,
+.reveal .slide .panel-tabset .tab-content .column-card li > :where(ul, ol) > li > :where(ul, ol) > li {
+  @include card-item(var(--color-1), 100%, $radius-2);
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.reveal .slide .panel-tabset .tab-content .column li > :where(ul, ol),
+.reveal .slide .panel-tabset .tab-content .column-card li > :where(ul, ol) {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+
+.reveal ul.task-list li input[type=checkbox] {
+  margin: 0 1em 0 0;
+  list-style: none;
+}
+
+.reveal ul li input[type=checkbox] {
+  margin: 0 1em 0 0;
+  list-style: none;
+  width:2em;
+  height:2em;
+  vertical-align: middle;
+}
+
+/* ── Equal height columns ─────────────────────────────────────── */
+/* Make .columns container use flexbox with stretch alignment */
+.reveal .slide .columns {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 0.5em;
+  margin-top: 0em !important;
+}
+
+/* Make each column a vertical flex container */
+.reveal .slide .columns .column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make column-card fill available height */
+.reveal .slide .columns .column .column-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

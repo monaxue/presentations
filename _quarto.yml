@@ -1,22 +1,21 @@
 #background-colors:
-#  - "rgba(237, 251, 255, 1)"
-#  - "rgba(246, 252, 237, 1)"
-#  - "rgba(254, 248, 237, 1)"
-#  - "rgba(252, 237, 247, 1)"
+#  - "rgba(237, 251, 255, 1)" # blue
+#  - "rgba(246, 252, 237, 1)" # green
+#  - "rgba(254, 248, 237, 1)" # tan
+#  - "rgba(252, 237, 247, 1)" # purple
 
+containers-auto-animate: false
+containers-bg-default: "rgba(254, 248, 237, 1)"
 format:
   containerstheme-revealjs:
-    center: true
-    touch: true
+    margin: 0.05
     incremental: true
-    self-contained: false
-    smaller: true
-    chalkboard:
-      theme: whiteboard
+    self-contained: false #must be false if want to use the white board
+    #chalkboard: false
+      #theme: whiteboard
     preview-links: true
     title-slide-attributes:
         data-state: "hide-menubar"
-    transition: slide
     section-divs: false
     menu: false
     simplemenu:
@@ -27,7 +26,18 @@ format:
     filters:
       - patches/iframe.lua
       - patches/filelink.lua
+      - custom-callout
+      - d2
+d2:
+  format: svg
+  embed_mode: raw
 revealjs-plugins:
   - simplemenu
   - tabset
+  - containerstheme
 bibliography: "My Library.bib"
+custom-callout: 
+  quote: 
+    color: "green"
+    icon: true
+    icon-symbol: "fa-quote-left" 
