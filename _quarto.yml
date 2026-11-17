@@ -4,6 +4,8 @@
 #  - "rgba(254, 248, 237, 1)" # tan
 #  - "rgba(252, 237, 247, 1)" # purple
 
+project:
+  output-dir: docs
 containers-auto-animate: false
 containers-bg-default: "rgba(254, 248, 237, 1)"
 format:
